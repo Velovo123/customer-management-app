@@ -1,5 +1,9 @@
 ﻿using CustomerManagementApp.Models;
 using MongoDB.Driver;
+using DotNetEnv;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
 
 namespace CustomerManagementApp.Repositories
 {
@@ -18,6 +22,8 @@ namespace CustomerManagementApp.Repositories
             {
                 throw new InvalidOperationException("MongoDB connection settings are not set in the environment variables.");
             }
+
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
