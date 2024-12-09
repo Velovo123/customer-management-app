@@ -8,7 +8,7 @@ using CustomerManagementApp.Repositories.IRepositories;
 
 namespace CustomerManagementApp.Repositories
 {
-    public class MongoCustomerRepository : IRepository<Customer>
+    public class MongoCustomerRepository : IMongoCustomerRepository<Customer>
     {
         private readonly IMongoCollection<Customer> _customers;
 
