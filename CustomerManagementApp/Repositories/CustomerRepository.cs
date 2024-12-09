@@ -5,16 +5,17 @@ using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson;
 using CustomerManagementApp.Repositories.IRepositories;
+using Microsoft.Extensions.Options;
 
 namespace CustomerManagementApp.Repositories
 {
-    public class MongoCustomerRepository : IMongoCustomerRepository<Customer>
+    public class CustomerRepository : ICustomerRepository
     {
         private readonly IMongoCollection<Customer> _customers;
 
-        public MongoCustomerRepository(IMongoClient client, string databaseName)
+        public CustomerRepository(IMongoClient client, IOptions<MongoSettings> mongoSettings)
         {
-            var database = client.GetDatabase(databaseName);
+            var database = client.GetDatabase(mongoSettings.Value.DatabaseName);
             _customers = database.GetCollection<Customer>("Customers");
         }
 

@@ -6,9 +6,9 @@ namespace CustomerManagementApp.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly IMongoCustomerRepository<Customer> _repository;
+        private readonly ICustomerRepository _repository;
 
-        public CustomerService(IMongoCustomerRepository<Customer> repository)
+        public CustomerService(ICustomerRepository repository)
         {
             _repository = repository;
         }
@@ -36,7 +36,7 @@ namespace CustomerManagementApp.Services
             if (customer.Id == Guid.Empty) throw new ArgumentException("Customer ID cannot be empty", nameof(customer));
             await _repository.UpdateAsync(customer);
         }
-
+          
         public async Task DeleteAsync(string id)
         {
             if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Customer ID cannot be empty", nameof(id));

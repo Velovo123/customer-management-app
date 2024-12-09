@@ -12,12 +12,12 @@ namespace CustomerManagementApp.Tests.Services
 {
     public class CustomerServiceTests
     {
-        private readonly Mock<IMongoCustomerRepository<Customer>> _mockRepository;
+        private readonly Mock<ICustomerRepository> _mockRepository;
         private readonly CustomerService _service;
 
         public CustomerServiceTests()
         {
-            _mockRepository = new Mock<IMongoCustomerRepository<Customer>>();
+            _mockRepository = new Mock<ICustomerRepository>();
             _service = new CustomerService(_mockRepository.Object);
         }
 
