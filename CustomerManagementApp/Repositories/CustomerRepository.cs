@@ -42,9 +42,17 @@ namespace CustomerManagementApp.Repositories
             return await _customers.Find(filter).FirstOrDefaultAsync();
         }
 
-        public Task UpdateAsync(Customer entity)
+        public async Task UpdateAsync(Customer entity)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Customer>.Filter.Eq("Id", entity.Id);
+            var update = Builders<Customer>.Update
+                .Set(c => c.FirstName, entity.FirstName)
+                .Set(c => c.LastName, entity.LastName)
+                .Set(c => c.Email, entity.Email)
+                .Set(c => c.PhoneNumber, entity.PhoneNumber)
+                .Set(c => c.Address, entity.Address);
+
+            await _customers.UpdateOneAsync(filter, update);
         }
     }
 }

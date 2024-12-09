@@ -66,7 +66,7 @@ namespace CustomerManagementApp.Controllers
 
         // POST: customer/edit/{id}
         [HttpPost("edit/{id}")]
-        public async Task<IActionResult> Edit(string id, [FromBody] Customer customer)
+        public async Task<IActionResult> Edit(string id, Customer customer)
         {
             if (!ModelState.IsValid)
             {
