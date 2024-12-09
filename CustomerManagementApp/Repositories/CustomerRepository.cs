@@ -24,9 +24,10 @@ namespace CustomerManagementApp.Repositories
             await _customers.InsertOneAsync(customer);
         }
 
-        public Task DeleteAsync(string id)
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Customer>.Filter.Eq("Id", id);
+            await _customers.DeleteOneAsync(filter);
         }
 
         public async Task<List<Customer>?> GetAllAsync()
@@ -35,9 +36,10 @@ namespace CustomerManagementApp.Repositories
             return customers.Count == 0 ? null : customers;
         }
 
-        public Task<Customer?> GetByIdAsync(string id)
+        public async Task<Customer?> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Customer>.Filter.Eq("Id", id);
+            return await _customers.Find(filter).FirstOrDefaultAsync();
         }
 
         public Task UpdateAsync(Customer entity)
