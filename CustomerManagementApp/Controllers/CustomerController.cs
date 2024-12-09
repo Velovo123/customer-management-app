@@ -33,7 +33,7 @@ namespace CustomerManagementApp.Controllers
 
         // POST: customer/create
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] Customer customer)
+        public async Task<IActionResult> Create(Customer customer)
         {
             if (!ModelState.IsValid)
             {
