@@ -68,6 +68,7 @@ namespace CustomerManagementApp.Controllers
         [HttpPost("edit/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, Customer customer)
         {
+            if (id != customer.Id) return BadRequest("Mismatched customer ID.");
             if (!ModelState.IsValid)
             {
                 return View(customer);
