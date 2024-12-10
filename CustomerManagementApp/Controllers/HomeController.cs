@@ -6,10 +6,9 @@ namespace CustomerManagementApp.Controllers
 {
     public class HomeController : Controller
     {
-        // Home controller is mainly for routing and basic pages
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Customer");  // Redirecting to CustomerController's Index
+            return RedirectToAction("Index", "Customer");  
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

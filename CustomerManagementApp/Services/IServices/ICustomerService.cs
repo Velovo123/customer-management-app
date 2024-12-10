@@ -6,8 +6,8 @@ namespace CustomerManagementApp.Services.IServices
     {
         Task CreateAsync(Customer customer);
         Task<List<Customer>?> GetAllAsync();
-        Task<Customer?> GetByIdAsync(string id);
+        Task<Customer?> GetByIdAsync(Guid id);
         Task UpdateAsync(Customer customer);
-        Task DeleteAsync(string id);
+        Task DeleteAsync(Guid id);
     }
 }

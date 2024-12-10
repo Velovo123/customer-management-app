@@ -24,9 +24,9 @@ namespace CustomerManagementApp.Services
             return await _repository.GetAllAsync();
         }
 
-        public async Task<Customer?> GetByIdAsync(string id)
+        public async Task<Customer?> GetByIdAsync(Guid id)
         {
-            if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Customer ID cannot be empty", nameof(id));
+            if (id == Guid.Empty) throw new ArgumentException("Customer ID cannot be empty", nameof(id));
             return await _repository.GetByIdAsync(id);
         }
 
@@ -36,10 +36,10 @@ namespace CustomerManagementApp.Services
             if (customer.Id == Guid.Empty) throw new ArgumentException("Customer ID cannot be empty", nameof(customer));
             await _repository.UpdateAsync(customer);
         }
-          
-        public async Task DeleteAsync(string id)
+
+        public async Task DeleteAsync(Guid id)
         {
-            if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Customer ID cannot be empty", nameof(id));
+            if (id == Guid.Empty) throw new ArgumentException("Customer ID cannot be empty", nameof(id));
             await _repository.DeleteAsync(id);
         }
     }
