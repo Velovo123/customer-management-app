@@ -49,7 +49,7 @@ Before you can run this project locally, make sure you have the following instal
 1. **Clone the repository**:
    Clone the project repository to your local machine using Git:
    ```bash
-   git clone https://github.com/your-username/customer-management-app.git
+   git clone https://github.com/Velovo123/customer-management-app.git
    
 2. **Navigate to the project directory**
    Change to the project folder:
