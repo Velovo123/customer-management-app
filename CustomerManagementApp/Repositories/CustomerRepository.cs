@@ -1,9 +1,6 @@
 ﻿using CustomerManagementApp.Models;
 using MongoDB.Driver;
 using DotNetEnv;
-using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson;
 using CustomerManagementApp.Repositories.IRepositories;
 using Microsoft.Extensions.Options;
 
@@ -24,9 +21,9 @@ namespace CustomerManagementApp.Repositories
             await _customers.InsertOneAsync(customer);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(Guid id)
         {
-            var filter = Builders<Customer>.Filter.Eq("Id", id);
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, id);
             await _customers.DeleteOneAsync(filter);
         }
 
@@ -36,15 +33,15 @@ namespace CustomerManagementApp.Repositories
             return customers.Count == 0 ? null : customers;
         }
 
-        public async Task<Customer?> GetByIdAsync(string id)
+        public async Task<Customer?> GetByIdAsync(Guid id)
         {
-            var filter = Builders<Customer>.Filter.Eq("Id", id);
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, id);
             return await _customers.Find(filter).FirstOrDefaultAsync();
         }
 
         public async Task UpdateAsync(Customer entity)
         {
-            var filter = Builders<Customer>.Filter.Eq("Id", entity.Id);
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, entity.Id);
             var update = Builders<Customer>.Update
                 .Set(c => c.FirstName, entity.FirstName)
                 .Set(c => c.LastName, entity.LastName)
