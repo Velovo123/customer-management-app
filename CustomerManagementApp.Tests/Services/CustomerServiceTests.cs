@@ -4,9 +4,8 @@ using CustomerManagementApp.Services;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace CustomerManagementApp.Tests.Services
 {
@@ -80,11 +79,12 @@ namespace CustomerManagementApp.Tests.Services
         public async Task GetByIdAsync_ShouldReturnCustomer_WhenCustomerExists()
         {
             // Arrange
-            var customer = new Customer { Id = Guid.NewGuid(), FirstName = "John", LastName = "Doe" };
-            _mockRepository.Setup(r => r.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(customer);
+            var customerId = Guid.NewGuid();
+            var customer = new Customer { Id = customerId, FirstName = "John", LastName = "Doe" };
+            _mockRepository.Setup(r => r.GetByIdAsync(customerId)).ReturnsAsync(customer);
 
             // Act
-            var result = await _service.GetByIdAsync(customer.Id.ToString());
+            var result = await _service.GetByIdAsync(customerId);
 
             // Assert
             Assert.NotNull(result);
@@ -95,17 +95,17 @@ namespace CustomerManagementApp.Tests.Services
         public async Task GetByIdAsync_ShouldThrowArgumentException_WhenIdIsEmpty()
         {
             // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _service.GetByIdAsync(""));
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.GetByIdAsync(Guid.Empty));
         }
 
         [Fact]
         public async Task GetByIdAsync_ShouldReturnNull_WhenCustomerDoesNotExist()
         {
             // Arrange
-            _mockRepository.Setup(r => r.GetByIdAsync(It.IsAny<string>())).ReturnsAsync((Customer?)null);
+            _mockRepository.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Customer?)null);
 
             // Act
-            var result = await _service.GetByIdAsync("nonexistent-id");
+            var result = await _service.GetByIdAsync(Guid.NewGuid());
 
             // Assert
             Assert.Null(result);
@@ -145,20 +145,20 @@ namespace CustomerManagementApp.Tests.Services
         public async Task DeleteAsync_ShouldCallDeleteOnRepository()
         {
             // Arrange
-            var customerId = Guid.NewGuid().ToString();
+            var customerId = Guid.NewGuid();
 
             // Act
             await _service.DeleteAsync(customerId);
 
             // Assert
-            _mockRepository.Verify(r => r.DeleteAsync(It.IsAny<string>()), Times.Once);
+            _mockRepository.Verify(r => r.DeleteAsync(It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]
         public async Task DeleteAsync_ShouldThrowArgumentException_WhenIdIsEmpty()
         {
             // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _service.DeleteAsync(""));
+            await Assert.ThrowsAsync<ArgumentException>(() => _service.DeleteAsync(Guid.Empty));
         }
     }
 }
