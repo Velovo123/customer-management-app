@@ -1,0 +1,16 @@
+﻿@model CustomerManagementApp.Models.Customer
+
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h3>@Model.FirstName @Model.LastName</h3>
+    <p>Email: @Model.Email</p>
+    <p>Phone Number: @Model.PhoneNumber</p>
+    <p>Address: @Model.Address</p>
+</div>
+
+<a href="@Url.Action("Index")">Back to Customer List</a>

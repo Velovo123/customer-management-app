@@ -1,0 +1,20 @@
+﻿@model CustomerManagementApp.Models.Customer
+
+@{
+    ViewData["Title"] = "Delete Customer";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h3>Are you sure you want to delete this customer?</h3>
+    <p>@Model.FirstName @Model.LastName</p>
+    <p>Email: @Model.Email</p>
+    <p>Phone Number: @Model.PhoneNumber</p>
+    <p>Address: @Model.Address</p>
+</div>
+
+<form method="post" asp-action="DeleteConfirmed" asp-route-id="@Model.Id">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+</form>
