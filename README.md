@@ -35,12 +35,6 @@ The `GuidSerializationProvider` class is used to customize the serialization and
 
 In short, this class ensures that `Guid` values are serialized using the `GuidRepresentation.Standard` format when interacting with MongoDB.
 
-## Getting Started
-
-### Prerequisites
-- .NET 5 or higher
-- MongoDB instance running locally or remotely
-- Visual Studio or another IDE
 
 ## Getting Started
 
